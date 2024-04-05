@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1709869870 source:d:\documents\downloads\demosdl\main.cpp
+	<iostream>
+	<SDL.h>
+
+1709306999 source:d:\documents\downloads\demosdl\bt2.cpp
+	<iostream>
+	<math.h>
+
