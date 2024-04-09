@@ -1,11 +1,29 @@
 #include <iostream>
 #include <SDL.h>
+#include <cstdlib>
+#include <chrono>
+#include <cmath>
+
+#include <SDL_image.h>
 
 using namespace std;
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
-const char* WINDOW_TITLE = "Hello World!";
+const char* WINDOW_TITLE = "Snake";
+
+const int BOARD_WIDTH = 30;
+const int BOARD_HEIGHT = 20;
+const int CELL_SIZE = 40;
+
+const int COLOR_KEY_R = 167;
+const int COLOR_KEY_G = 175;
+const int COLOR_KEY_B= 188;
+
+
+const SDL_Color BOARD_COLOR = {0, 0, 0, 0};
+const SDL_Color LINE_COLOR = {0, 0, 255, 255};
+
 
 void logErrorAndExit(const char* msg, const char* error)
 {
@@ -30,8 +48,6 @@ SDL_Renderer* createRenderer(SDL_Window* window)
 {
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
                                               SDL_RENDERER_PRESENTVSYNC);
-    //Khi chạy trong máy ảo (ví dụ phòng máy ở trường)
-    //renderer = SDL_CreateSoftwareRenderer(SDL_GetWindowSurface(window));
 
     if (renderer == nullptr) logErrorAndExit("CreateRenderer", SDL_GetError());
 
@@ -59,19 +75,7 @@ void waitUntilKeyPressed()
     }
 }
 
-void drawSomething(SDL_Window* window, SDL_Renderer* renderer) {
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);   // white
-    SDL_RenderDrawPoint(renderer, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);   // red
-    SDL_RenderDrawLine(renderer, 100, 100, 200, 200);
-    SDL_Rect filled_rect;
-    filled_rect.x = SCREEN_WIDTH - 400;
-    filled_rect.y = SCREEN_HEIGHT - 150;
-    filled_rect.w = 320;
-    filled_rect.h = 100;
-    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // green
-    SDL_RenderFillRect(renderer, &filled_rect);
-}
+SDL_Texture* loadTexture(string path, SDL_Renderer* renderer);
 
 int main(int argc, char* argv[])
 {
@@ -79,20 +83,35 @@ int main(int argc, char* argv[])
     SDL_Window* window = initSDL(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
     SDL_Renderer* renderer = createRenderer(window);
 
-    //Xóa màn hình
-    SDL_RenderClear(renderer);
+    SDL_Texture* background = loadTexture("snake.jpg", renderer);
+    SDL_RenderCopy(renderer, background, NULL, NULL);
 
-    //Vẽ gì đó
-    drawSomething(window, renderer);
 
-    //Hiện bản vẽ ra màn hình
-    //Khi chạy tại môi trường bình thường
     SDL_RenderPresent(renderer);
-    //Khi chạy trong máy ảo (ví dụ phòng máy ở trường)
-    //SDL_UpdateWindowSurface(window);
 
-    //Đợi phím bất kỳ trước khi đóng môi trường đồ họa và kết thúc chương trình
     waitUntilKeyPressed();
     quitSDL(window, renderer);
     return 0;
+}
+
+SDL_Texture* loadTexture(string path, SDL_Renderer*renderer)
+{
+     SDL_Texture* newTexture = NULL;
+          SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+
+          if( loadedSurface == nullptr)
+          {
+
+            cout<< " Unable to load image " << path << " SDL_image Error: "
+                    <<  IMG_GetError() << endl;
+
+         } else {
+            newTexture = SDL_CreateTextureFromSurface( renderer, loadedSurface );
+            if( newTexture == nullptr )
+                cout<< " Unable to create texture from " << path <<  " SDL Error: "
+                        << SDL_GetError() << endl;
+           SDL_FreeSurface( loadedSurface );
+
+          }
+          return newTexture;
 }
