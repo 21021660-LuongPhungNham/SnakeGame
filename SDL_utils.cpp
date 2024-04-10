@@ -1,47 +1,15 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <string>
 
 #include "SDL_utils.h"
-#include "Gallery.h"
 
 using namespace std;
 
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
-const char* WINDOW_TITLE = "Snake";
-
-void initSDL(SDL_Window* &window, SDL_Renderer* &renderer, int screenWidth, int screenHeight, const char* windowTitle);
-void logSDLError(const char* msg, const char* error);
-void quitSDL(SDL_Window* window, SDL_Renderer* renderer);
-void waitUntilKeyPressed();
-SDL_Texture* loadTexture(string path, SDL_Renderer* renderer);
-
-Gallery* gallery = nullptr;
-
-int main(int argc, char* argv[])
+void logSDLError(ostream& os, const string &msg, bool fatal)
 {
-    // Khởi tạo môi trường đồ họa
-    SDL_Window* window;
-    SDL_Renderer* renderer;
-    initSDL(window, renderer, SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
-
-    SDL_Texture* background = loadTexture("Background.jpg", renderer);
-    SDL_RenderCopy(renderer, background, NULL, NULL);
-    SDL_RenderPresent(renderer);
-
-    waitUntilKeyPressed();
-    quitSDL(window, renderer);
-    return 0;
-
-    gallery = new Gallery(renderer);
-    delete gallery;
-
-}
-
-void logSDLError(std::ostream& os, const std::string &msg, bool fatal)
-{
-    os << msg << " Error: " << SDL_GetError() << std::endl;
+    os << msg << " Error: " << SDL_GetError() << endl;
     if (fatal) {
         SDL_Quit();
         exit(1);
@@ -51,15 +19,15 @@ void logSDLError(std::ostream& os, const std::string &msg, bool fatal)
 void initSDL(SDL_Window* &window, SDL_Renderer* &renderer, int screenWidth, int screenHeight, const char* windowTitle)
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
-        logSDLError(std::cout, "SDL_Init", true);
+        logSDLError(cout, "SDL_Init", true);
 
     window = SDL_CreateWindow(windowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
     if (window == nullptr)
-        logSDLError(std::cout, "CreateWindow", true);
+        logSDLError(cout, "CreateWindow", true);
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (renderer == nullptr)
-        logSDLError(std::cout, "CreateRenderer", true);
+        logSDLError(cout, "CreateRenderer", true);
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
     SDL_RenderSetLogicalSize(renderer, screenWidth, screenHeight);
@@ -96,3 +64,7 @@ SDL_Texture* loadTexture(string path, SDL_Renderer* renderer)
     }
     return newTexture;
 }
+
+int SDL_main(int argc, char* arvg[]) {
+}
+
