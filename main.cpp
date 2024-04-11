@@ -1,98 +1,68 @@
+/*
+ * A simple snake game
+ */
 #include <iostream>
 #include <SDL.h>
-#include <SDL_image.h>
+#include <cstdlib>
+#include <ctime>
+#include "SDL_Utils.h"
+#include "Game.h"
+#include "UI.h"
 
-#include "SDL_utils.h"
-#include "Gallery.h"
+#include <cmath>
+#include <chrono>
 
 using namespace std;
 
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
-const char* WINDOW_TITLE = "Snake";
+const double STEP_DELAY = 0.2;
+#define CLOCK_NOW chrono::system_clock::now
+typedef chrono::duration<double> ElapsedTime;
 
-void initSDL(SDL_Window* &window, SDL_Renderer* &renderer, int screenWidth, int screenHeight, const char* windowTitle);
-void logSDLError(const char* msg, const char* error);
-void quitSDL(SDL_Window* window, SDL_Renderer* renderer);
-void waitUntilKeyPressed();
-SDL_Texture* loadTexture(string path, SDL_Renderer* renderer);
+const int BOARD_WIDTH = 30;
+const int BOARD_HEIGHT = 20;
 
-Gallery* gallery = nullptr;
-
-int main(int argc, char* argv[])
+void start()
 {
-    // Khởi tạo môi trường đồ họa
-    SDL_Window* window;
-    SDL_Renderer* renderer;
-    initSDL(window, renderer, SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
-
-    SDL_Texture* background = loadTexture("Background.jpg", renderer);
-    SDL_RenderCopy(renderer, background, NULL, NULL);
-    SDL_RenderPresent(renderer);
-
+    cout << "Press any key to start game" << endl;
     waitUntilKeyPressed();
-    quitSDL(window, renderer);
-    return 0;
-
-    gallery = new Gallery(renderer);
-    delete gallery;
-
 }
 
-void logSDLError(std::ostream& os, const std::string &msg, bool fatal)
+int main(int argc, char *argv[])
 {
-    os << msg << " Error: " << SDL_GetError() << std::endl;
-    if (fatal) {
-        SDL_Quit();
-        exit(1);
-    }
-}
+    srand(time(0));
+    UI ui(BOARD_WIDTH, BOARD_HEIGHT);
+    Game game(BOARD_WIDTH, BOARD_HEIGHT);
 
-void initSDL(SDL_Window* &window, SDL_Renderer* &renderer, int screenWidth, int screenHeight, const char* windowTitle)
-{
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
-        logSDLError(std::cout, "SDL_Init", true);
+    start();
 
-    window = SDL_CreateWindow(windowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
-    if (window == nullptr)
-        logSDLError(std::cout, "CreateWindow", true);
-
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (renderer == nullptr)
-        logSDLError(std::cout, "CreateRenderer", true);
-
-    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-    SDL_RenderSetLogicalSize(renderer, screenWidth, screenHeight);
-}
-
-void quitSDL(SDL_Window* window, SDL_Renderer* renderer)
-{
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-}
-
-void waitUntilKeyPressed()
-{
+    auto start = CLOCK_NOW();
+    ui.renderGamePlay(game);
     SDL_Event e;
-    while (true) {
-        if (SDL_WaitEvent(&e) != 0 && (e.type == SDL_KEYDOWN || e.type == SDL_QUIT))
-            return;
-        SDL_Delay(100);
-    }
-}
+    while (game.isGameRunning()) {
+        if (SDL_PollEvent(&e)) {
+            if (e.type == SDL_KEYUP) {
+                switch (e.key.keysym.sym) {
+                    case SDLK_UP: game.processUserInput(UP); break;
+                    case SDLK_DOWN: game.processUserInput(DOWN); break;
+                    case SDLK_LEFT: game.processUserInput(LEFT); break;
+                    case SDLK_RIGHT: game.processUserInput(RIGHT); break;
+                }
+            }
+        }
 
-SDL_Texture* loadTexture(string path, SDL_Renderer* renderer)
-{
-    SDL_Texture* newTexture = NULL;
-    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-    if (loadedSurface == NULL)
-        cout << "Unable to load image " << path << " SDL_image Error: " << IMG_GetError() << endl;
-    else {
-        newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-        if (newTexture == NULL)
-            cout << "Unable to create texture from " << path << " SDL Error: " << SDL_GetError() << endl;
-        SDL_FreeSurface(loadedSurface);
+        auto end = CLOCK_NOW();
+        ElapsedTime elapsed = end-start;
+        if (elapsed.count() > STEP_DELAY) {
+            game.nextStep();
+            ui.renderGamePlay(game);
+            start = end;
+        }
+        SDL_Delay(1);
     }
-    return newTexture;
+
+    ui.renderGameOver();
+    waitUntilKeyPressed();
+
+    ui.destroy();
+    return 0;
 }

@@ -1,0 +1,54 @@
+# depslib dependency file v1.0
+1712829786 source:c:\users\may tinh ts\desktop\demosdl\advprogram\sdl_mini-game-snake\game.cpp
+	<vector>
+	<cassert>
+	<cstdlib>
+	<iostream>
+	"Game.h"
+
+1712830160 c:\users\may tinh ts\desktop\demosdl\advprogram\sdl_mini-game-snake\game.h
+	"Snake.h"
+	"Position.h"
+
+1712830160 c:\users\may tinh ts\desktop\demosdl\advprogram\sdl_mini-game-snake\snake.h
+	<queue>
+	<vector>
+	"Position.h"
+
+1712842811 c:\users\may tinh ts\desktop\demosdl\advprogram\sdl_mini-game-snake\position.h
+
+1712830213 source:c:\users\may tinh ts\desktop\demosdl\advprogram\sdl_mini-game-snake\snake.cpp
+	"Snake.h"
+	"Game.h"
+	<iostream>
+
+1712844279 source:c:\users\may tinh ts\desktop\demosdl\advprogram\sdl_mini-game-snake\main.cpp
+	<iostream>
+	<SDL.h>
+	<cstdlib>
+	<ctime>
+	"SDL_Utils.h"
+	"Game.h"
+	"UI.h"
+	<cmath>
+	<chrono>
+
+1712829201 c:\users\may tinh ts\desktop\demosdl\advprogram\sdl_mini-game-snake\sdl_utils.h
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+
+1712844918 c:\users\may tinh ts\desktop\demosdl\advprogram\sdl_mini-game-snake\ui.h
+	<SDL.h>
+	<SDL_image.h>
+	"SDL_Utils.h"
+
+1712831901 source:c:\users\may tinh ts\desktop\demosdl\advprogram\sdl_mini-game-snake\gallery.cpp
+	"Gallery.h"
+
+1712831901 c:\users\may tinh ts\desktop\demosdl\advprogram\sdl_mini-game-snake\gallery.h
+	<SDL.h>
+	<SDL_image.h>
+	<vector>
+	<string>
+
