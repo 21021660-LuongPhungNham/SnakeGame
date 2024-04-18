@@ -52,3 +52,91 @@
 	<vector>
 	<string>
 
+1713451127 source:c:\users\may tinh ts\desktop\a\snakegame\game.cpp
+	<vector>
+	<cassert>
+	<cstdlib>
+	<iostream>
+	"Game.h"
+
+1713451127 c:\users\may tinh ts\desktop\a\snakegame\game.h
+	"Snake.h"
+	"Position.h"
+
+1713451128 c:\users\may tinh ts\desktop\a\snakegame\snake.h
+	<queue>
+	<vector>
+	"Position.h"
+
+1713451127 c:\users\may tinh ts\desktop\a\snakegame\position.h
+
+1713451128 source:c:\users\may tinh ts\desktop\a\snakegame\main.cpp
+	<iostream>
+	<SDL.h>
+	<cstdlib>
+	<ctime>
+	"SDL_Utils.h"
+	"Game.h"
+	"UI.h"
+	<cmath>
+	<chrono>
+
+1713451128 c:\users\may tinh ts\desktop\a\snakegame\sdl_utils.h
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+
+1713451128 c:\users\may tinh ts\desktop\a\snakegame\ui.h
+	<SDL.h>
+	<SDL_image.h>
+	"SDL_Utils.h"
+
+1713451128 source:c:\users\may tinh ts\desktop\a\snakegame\snake.cpp
+	"Snake.h"
+	"Game.h"
+	<iostream>
+
+1713451127 source:c:\users\may tinh ts\desktop\game\snakegame\game.cpp
+	<vector>
+	<cassert>
+	<cstdlib>
+	<iostream>
+	"Game.h"
+
+1713455374 c:\users\may tinh ts\desktop\game\snakegame\game.h
+	"Snake.h"
+	"Position.h"
+
+1713451128 c:\users\may tinh ts\desktop\game\snakegame\snake.h
+	<queue>
+	<vector>
+	"Position.h"
+
+1713451127 c:\users\may tinh ts\desktop\game\snakegame\position.h
+
+1713455374 source:c:\users\may tinh ts\desktop\game\snakegame\main.cpp
+	<iostream>
+	<SDL.h>
+	<cstdlib>
+	<ctime>
+	"SDL_Utils.h"
+	"Game.h"
+	"UI.h"
+	<cmath>
+	<chrono>
+
+1713451128 c:\users\may tinh ts\desktop\game\snakegame\sdl_utils.h
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+
+1713451128 c:\users\may tinh ts\desktop\game\snakegame\ui.h
+	<SDL.h>
+	<SDL_image.h>
+	"SDL_Utils.h"
+
+1713451128 source:c:\users\may tinh ts\desktop\game\snakegame\snake.cpp
+	"Snake.h"
+	"Game.h"
+	<iostream>
+
