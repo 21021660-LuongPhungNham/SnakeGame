@@ -1,6 +1,3 @@
-/*
- * A simple snake game
- */
 #include <iostream>
 #include <SDL.h>
 #include <cstdlib>
@@ -8,6 +5,7 @@
 #include "SDL_Utils.h"
 #include "Game.h"
 #include "UI.h"
+#include <SDL_mixer.h>
 
 #include <cmath>
 #include <chrono>
@@ -29,6 +27,30 @@ void start()
 
 int main(int argc, char *argv[])
 {
+    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+        cout << "SDL could not initialize! SDL_Error: " << SDL_GetError() << endl;
+        return 1;
+    }
+
+    // Khởi tạo SDL_mixer
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+        cout << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << endl;
+        return 1;
+    }
+
+    // Tải âm thanh
+    Mix_Chunk* eatSound = Mix_LoadWAV("eat_sound.wav");
+    if (eatSound == NULL) {
+        cout << "Failed to load eat sound! SDL_mixer Error: " << Mix_GetError() << endl;
+        return 1;
+    }
+
+    Mix_Chunk* gameOverSound = Mix_LoadWAV("gameover_sound.wav");
+    if (gameOverSound == NULL) {
+        cout << "Failed to load game over sound! SDL_mixer Error: " << Mix_GetError() << endl;
+        return 1;
+    }
+
     srand(time(0));
     UI ui(BOARD_WIDTH, BOARD_HEIGHT);
     Game game(BOARD_WIDTH, BOARD_HEIGHT);
@@ -60,9 +82,17 @@ int main(int argc, char *argv[])
         SDL_Delay(1);
     }
 
+    // am thanh tro choi ket thuc
+    Mix_PlayChannel(-1, gameOverSound, 0);
     ui.renderGameOver();
     waitUntilKeyPressed();
 
-    ui.destroy();
+    Mix_FreeChunk(eatSound);
+    Mix_FreeChunk(gameOverSound);
+
+    Mix_CloseAudio();
+
+    SDL_Quit();
+
     return 0;
 }
