@@ -59,7 +59,7 @@
 	<iostream>
 	"Game.h"
 
-1713496476 c:\users\may tinh ts\desktop\a\snakegame\game.h
+1713515715 c:\users\may tinh ts\desktop\a\snakegame\game.h
 	"Snake.h"
 	"Position.h"
 
@@ -70,7 +70,7 @@
 
 1713496476 c:\users\may tinh ts\desktop\a\snakegame\position.h
 
-1713496477 source:c:\users\may tinh ts\desktop\a\snakegame\main.cpp
+1713515591 source:c:\users\may tinh ts\desktop\a\snakegame\main.cpp
 	<iostream>
 	<SDL.h>
 	<cstdlib>
@@ -81,7 +81,7 @@
 	<cmath>
 	<chrono>
 
-1713496477 c:\users\may tinh ts\desktop\a\snakegame\sdl_utils.h
+1713514934 c:\users\may tinh ts\desktop\a\snakegame\sdl_utils.h
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
@@ -96,25 +96,25 @@
 	"Game.h"
 	<iostream>
 
-1713451127 source:c:\users\may tinh ts\desktop\game\snakegame\game.cpp
+1715102237 source:c:\users\may tinh ts\desktop\game\snakegame\game.cpp
 	<vector>
 	<cassert>
 	<cstdlib>
 	<iostream>
 	"Game.h"
 
-1713455374 c:\users\may tinh ts\desktop\game\snakegame\game.h
+1715102234 c:\users\may tinh ts\desktop\game\snakegame\game.h
 	"Snake.h"
 	"Position.h"
 
-1713451128 c:\users\may tinh ts\desktop\game\snakegame\snake.h
+1713496477 c:\users\may tinh ts\desktop\game\snakegame\snake.h
 	<queue>
 	<vector>
 	"Position.h"
 
-1713451127 c:\users\may tinh ts\desktop\game\snakegame\position.h
+1713496476 c:\users\may tinh ts\desktop\game\snakegame\position.h
 
-1713455374 source:c:\users\may tinh ts\desktop\game\snakegame\main.cpp
+1715100968 source:c:\users\may tinh ts\desktop\game\snakegame\main.cpp
 	<iostream>
 	<SDL.h>
 	<cstdlib>
@@ -124,19 +124,22 @@
 	"UI.h"
 	<cmath>
 	<chrono>
+	<SDL_mixer.h>
 
-1713451128 c:\users\may tinh ts\desktop\game\snakegame\sdl_utils.h
+1715102256 c:\users\may tinh ts\desktop\game\snakegame\sdl_utils.h
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
 
-1713451128 c:\users\may tinh ts\desktop\game\snakegame\ui.h
+1715100907 c:\users\may tinh ts\desktop\game\snakegame\ui.h
 	<SDL.h>
 	<SDL_image.h>
 	"SDL_Utils.h"
 
-1713451128 source:c:\users\may tinh ts\desktop\game\snakegame\snake.cpp
+1714036989 source:c:\users\may tinh ts\desktop\game\snakegame\snake.cpp
 	"Snake.h"
 	"Game.h"
 	<iostream>
+
+1714143745 source:c:\users\may tinh ts\desktop\game\snakegame\soundmanager.cpp
 

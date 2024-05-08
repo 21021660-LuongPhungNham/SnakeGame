@@ -33,17 +33,15 @@ void Snake::growAtFront(Position newPosition)
 
 void Snake::slideTo(Position newPosition)
 {
-	if (tail->next == nullptr) { // snake has only one node
+	if (tail->next == nullptr) {
 		tail->position = newPosition;
 	}
 	else {
 		SnakeNode *oldTailNode = tail;
 
-		//cut the old tail off the snake
 		tail = tail->next;
 		oldTailNode->next = nullptr;
 
-		// move it to the head of the snake
 		oldTailNode->position = newPosition;
 		head->next = oldTailNode;
 		head = oldTailNode;
