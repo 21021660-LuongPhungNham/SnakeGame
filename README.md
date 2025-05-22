@@ -1,5 +1,5 @@
 # SnakeGame
-#Đây là một phiên bản đơn giản của trò chơi "Rắn Săn Mồ" được viết bằng ngôn ngữ lập trình C++ và sử dụng thư viện SDL2.0
+#Đây là một phiên bản đơn giản của trò chơi "Rắn Săn Mồi" được viết bằng ngôn ngữ lập trình C++ và sử dụng thư viện SDL2.0
 
 #Hướng Dẫn Sử Dụng
 
